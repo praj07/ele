@@ -1,0 +1,29 @@
+{
+  "name": "ele",
+  "version": "1.0.0",
+  "description": "a platform for patients nearing end of life can address the elephant in the room and complete necessary tasks with loved ones",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node built/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/praj07/ele.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/praj07/ele/issues"
+  },
+  "homepage": "https://github.com/praj07/ele#readme",
+  "devDependencies": {
+    "@types/express": "^4.16.1",
+    "tslint": "^5.12.1",
+    "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
