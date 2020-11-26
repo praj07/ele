@@ -1,7 +1,10 @@
 import express from 'express';
 const db = require('./config/database');
 const path = require('path');
+const handlebars = require('handlebars');
 const exphbs = require('express-handlebars');
+const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
+// const insecureHandlers = allowInsecurePrototypeAccess(exphbs);
 
 try {
     db.authenticate()
@@ -12,13 +15,13 @@ try {
 
 const app = express();
 
-app.engine('handlebars', exphbs( { defaultLayout: 'main' }));
+app.engine('handlebars', exphbs( { defaultLayout: 'main', handlebars: allowInsecurePrototypeAccess(handlebars) }));
 app.set('view engine', 'handlebars');
 
 app.use(express.static(path.join(__dirname, '../public')))
 const port = 3000;
 
-app.use('/users', require('./routes/users'));
+app.use('/home', require('./routes/home'));
 app.get('/', (req, res) => {
   res.send('The sedulous hyena ate the antelope!');
 });
