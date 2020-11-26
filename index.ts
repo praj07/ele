@@ -1,8 +1,7 @@
 import express from 'express';
-import * as Sequelize from 'Sequelize';
-const db = require('./config/database')
-const user = require('./schemas/models/postgres/User')
-
+const db = require('./config/database');
+const path = require('path');
+const exphbs = require('express-handlebars');
 
 try {
     db.authenticate()
@@ -11,9 +10,12 @@ try {
     console.log('failed to create a connection');
 };
 
-
-
 const app = express();
+
+app.engine('handlebars', exphbs( { defaultLayout: 'main' }));
+app.set('view engine', 'handlebars');
+
+app.use(express.static(path.join(__dirname, '../public')))
 const port = 3000;
 
 app.use('/users', require('./routes/users'));
