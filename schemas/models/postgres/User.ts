@@ -6,11 +6,19 @@ const user = db.define('users', {
     lastName: Sequelize.STRING,
     dob: Sequelize.DATEONLY,
     password: Sequelize.STRING,
+    email: Sequelize.STRING,
+    id: {
+        type: Sequelize.UUIDV4,
+        defaultValue: Sequelize.UUIDV4,
+        primaryKey: true,
+    },
     friendCode:{
         type: Sequelize.UUIDV4,
-        defaultValue: Sequelize.UUIDV4}
+        defaultValue: Sequelize.UUIDV4
+    }
 }, {
     timestamps: false,
 });
+
 
 module.exports = user;

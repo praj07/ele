@@ -101,6 +101,19 @@ header.inner {
   border: 1px solid var(--primary-hover-color);
 }
 
+.fa-plus-circle {
+  display:inline-block;
+  text-align: center;
+  color : #cf8181
+}
+
+.fa-plus-circle:hover {
+  text-emphasis: 2;
+}
+.add {
+  text-align: center;
+}
+
 /* Home Search */
 .search-wrap {
   background: url('../img/showcase.jpg') no-repeat center center fixed / cover;
