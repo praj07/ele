@@ -47,7 +47,7 @@ router.post('/signup', async (req, res) => {
         if (!userToCheck) { // user not found
             // unique email
             const encryptedPass = bcrypt.hashSync(password, salt);
-            createdUser = User.create({
+            createdUser = await User.create({
                 firstName,
                 lastName,
                 email,
@@ -61,6 +61,7 @@ router.post('/signup', async (req, res) => {
             })
         }
         return res.json ({
+            id: createdUser.id,
             message: 'cool'
         })
     } else {
@@ -70,4 +71,50 @@ router.post('/signup', async (req, res) => {
     };
 })
 
+router.post('/login', async (req, res) => {
+    let valid : boolean;
+    const user = req.body;
+    try {
+        valid = validUser(req.body)
+    } catch (e) {
+        return res.status(400).json({
+            message: 'Error please ensure proper parameters'
+        })
+    }
+    if (valid) {
+        const { email, password } = user; 
+        const userToCheck = await User.findOne({
+            where : {
+                email
+            }
+        });
+        if (userToCheck) {
+            const result = await bcrypt.compare(password, userToCheck.password);
+            if (result) {
+               // passwords match 
+               const isSecured = req.app.get('env') != 'development'; 
+                res.cookie('user_id', userToCheck.id, {
+                   httpOnly: true,
+                   signed: true,
+                   secure: isSecured
+                });
+            } else {
+                return res.status(400).json({
+                    message: "Incorrect email and password"
+                });
+            }
+            res.json({
+                message: "Logged in"
+            })
+        } else {
+            return res.status(400).json({
+                message: "Email doesn't exist"
+            });
+        }
+    } else {
+        res.status(400).json({
+            message: "Invalid email and password"
+        })
+    }
+})
 module.exports = router;
