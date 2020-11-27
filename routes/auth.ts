@@ -74,6 +74,7 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
     let valid : boolean;
     const user = req.body;
+    console.log(user)
     try {
         valid = validUser(req.body)
     } catch (e) {
@@ -103,9 +104,10 @@ router.post('/login', async (req, res) => {
                     message: "Incorrect email and password"
                 });
             }
-            res.json({
-                message: "Logged in"
-            })
+            // res.json({
+            //     message: "Logged in"
+            // });
+            res.redirect('/home')
         } else {
             return res.status(400).json({
                 message: "Email doesn't exist"
