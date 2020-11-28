@@ -39,6 +39,7 @@
     "install": "^0.13.0",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "uuidv4": "^6.2.5"
   }
 }

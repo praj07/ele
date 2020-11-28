@@ -1,5 +1,5 @@
   <section id="gigs" class="container">
-    <h1>{{greeting}}, <em>{{user.firstName}}</em>. You have <em>X events</em> today.</h1>
+    <h1>{{greeting}}, <em>{{user.firstName}}</em>. You have <em>{{todosTodayCount}} {{eventsPlularized}}</em> today.</h1>
         <div class="gig">
             <h3>Estate Planning</h3>
             <p>You are X% through your estate planning</p>
@@ -23,6 +23,22 @@
                 <small>Technologies Needed: <span>react, redux, javascript</span></small>
             </div>
         </div>
+        {{#each todos}}
+            <div class="gig">
+            <h3>{{title}}</h3>
+            <p>{{description}}<p>
+            <ul>
+                <li>{{deadline}}</li>
+                <li><a href="#" class="btn btn-reverse">Edit</a></li>
+                <li><a href="#" class="btn btn-reverse">Mark as completed</a></li>
+            </ul>
+            <div class="tech">
+                <small>People invited: <span>{{#each invitees}}{{this}}, {{/each}}</span></small>
+            </div>
+        </div>
+        {{else}}
+            <p>No events created! Add something memorable to do.</p>
+        {{/each}}
         <div class="add">
             <a href = "/add" class="fas fa-plus-circle fa-7x"></a>
         </div>

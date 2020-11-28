@@ -48,9 +48,9 @@ router.post('/signup', async (req, res) => {
             // unique email
             const encryptedPass = bcrypt.hashSync(password, salt);
             createdUser = await User.create({
-                firstName,
-                lastName,
-                email,
+                firstName: firstName.trim(),
+                lastName : lastName.trim(),
+                email: email.trim(),
                 dob,
                 password : encryptedPass
             })
@@ -104,11 +104,9 @@ router.post('/login', async (req, res) => {
                     message: "Incorrect email and password"
                 });
             }
-            // res.json({
-            //     message: "Logged in"
-            // });
             res.redirect('/home')
         } else {
+            console.log(userToCheck)
             return res.status(400).json({
                 message: "Email doesn't exist"
             });

@@ -6,6 +6,7 @@ const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
+const authMiddleware = require('./routes/middleware');
 // const insecureHandlers = allowInsecurePrototypeAccess(exphbs);
 
 try {
@@ -28,7 +29,9 @@ app.use(cookieParser('ele_in_the_room'));
 app.use(bodyParser.json())
 const port = 3000;
 
-app.use('/home', require('./routes/home'));
+app.use('/home', authMiddleware.ensureLoggedIn, require('./routes/home'));
+app.use('/add', authMiddleware.ensureLoggedIn, require('./routes/add'));
+
 app.use('/auth', require('./routes/auth'));
 app.get('/', (req, res) => {
   res.render('login', { layout : 'landing' });
