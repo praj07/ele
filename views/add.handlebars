@@ -3,7 +3,7 @@
     <div class="form-wrap">
       <h1>Add Event</h1>
       <p>Add tasks and things to do to your bucket list</p>
-      <form>
+      <form class="form" action="/add" method="POST">
         <div class="input-group">
           <label for="title">Title</label>
           <input type="text" name="title" id="title" class="input-box" placeholder="eg. Visit Machu Pichu"
@@ -15,19 +15,14 @@
           maxlength="100">
         </div>
         <div class="input-group">
-          <label for="budget">Date</label>
-          <input type="date" name="date" id="date" class="input-box" value="2020-11-26">
+          <label for="budget">Deadline</label>
+          <input type="date" name="deadline" id="date" class="input-box" value="2020-11-26">
         </div>
         <div class="input-group">
           <label for="description">Description</label>
           <textarea name="description" id="description" class="input-box" placeholder="Describe the details of the event"
             rows="10" required></textarea>
         </div>
-        {{!-- <div class="input-group">
-          <label for="budget">Contact Email</label>
-          <input type="email" name="contact_email" id="contactemail" class="input-box" placeholder="Enter an email"
-            required>
-        </div> --}}
         <input type="submit" value="Add event" class="btn btn-reverse">
       </form>
     </div>

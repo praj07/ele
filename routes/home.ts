@@ -3,7 +3,6 @@ import  * as Sequelize from 'Sequelize';
 const router = express.Router();
 const User = require('../schemas/models/postgres/User');
 const Todo = require("../schemas/models/postgres/Todo");
-import { uuid } from 'uuidv4';
 
 router.get('/', async (req, res) => {
 
