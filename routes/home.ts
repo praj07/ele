@@ -14,18 +14,19 @@ router.get('/', async (req, res) => {
     });
     const todos = await Todo.findAll({
         where: {
-            deadline : { $gte: Date.now() },
+            deadline : { [Sequelize.Op.gte]: Date.now() },
             owner : userId,
             isCompleted: false,
         },
     });
     const todosToday = await Todo.findAndCountAll({
         where : {
+            isCompleted: false,
             deadline : Date.now(), 
         }
-    })
+    });
     const todosTodayCount = todosToday.count;
-    const eventsPlularized = todosTodayCount > 1 ? 'events' : 'event'
+    const eventsPlularized = todosTodayCount == 1 ? 'event' : 'events'
     const hourOfDay = new Date().getHours();
     let greeting = hourOfDay < 12 ? "Good morning" : ( hourOfDay < 17 ? "Good afternoon" : "Good evening");
     res.render('home', {
