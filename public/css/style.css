@@ -33,7 +33,7 @@ a:hover {
 }
 
 .container {
-  max-width: 960px;
+  max-width: 1152px;
   padding: 1rem 4rem;
   margin: auto;
   overflow: hidden;
@@ -102,9 +102,14 @@ header.inner {
 }
 
 .fa-plus-circle {
-  display:inline-block;
-  text-align: center;
-  color : #cf8181
+  display: flex;
+  float: right;
+  position: relative;
+  right: 50px;
+  top:-65px;
+  color : hsl(26, 49%, 72%);
+  /* text-shadow: 1px 1px 1px #ccc; */
+  
 }
 
 .fa-plus-circle:hover {
@@ -313,4 +318,149 @@ label {
   .form-wrap.login-form {
     width: 100%;
   }
+}
+
+.events {
+  background: #5D774D;
+  width: 810px;
+  height: 190px;
+  border-radius: 12px;
+  position: relative;
+} 
+
+.events h1 {
+  font-family: proxima-nova, sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+  color: #FFFFFF;
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+.events p {
+  font-family: proxima-nova, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 18px;
+  color: #FFFFFF;
+  margin: 0;
+  vertical-align: text-bottom;
+
+}
+
+.events ul {
+  /* padding-top: 0.5rem; */
+  /* padding-bottom:  */
+  margin: 0;
+  list-style: none;
+  width: 60%;
+  height: 100%;
+  vertical-align: middle;
+}
+
+#nothing {
+  vertical-align: middle;
+  margin-right: 0.5rem;
+  margin-left: 1rem;
+  padding: 1rem;
+  border-bottom: none;
+  /* transform: rotate(180deg) */
+}
+
+.events li {
+  /* margin-right: 1rem; */
+  margin-left: 1rem;
+  padding: 1rem;
+  border-bottom:1px solid #475F39;
+  /* transform: rotate(180deg) */
+}
+
+.later-events {
+  vertical-align: middle;
+  position: absolute;
+  right:0;
+  top: 15%;
+  width: 40%;
+  margin-left: 1rem;
+  padding: 1rem;
+  border-left:1px solid #475F39;
+}
+
+.bucket-list-header {
+  display: flex;
+}
+
+.btn-add {
+  height: 75%;
+  position: relative;
+  top: 18px;
+  left: 20px;
+  color: black;
+  /* border-radius: 25%; */
+}
+
+.suggestion {
+  margin: 0;
+  padding: 1rem;
+  padding-left: 2rem;
+  width: 810px;
+  height: 500px;
+  background: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  box-sizing: border-box;
+  border-radius: 12px;
+}
+.suggestion h1 {
+  font-size: 17px;
+}
+.suggestion li {
+  border-bottom : 1px solid #E0E0E0;
+}
+
+.suggestion li h3 {
+  font-weight: 450; 
+  font-size: 17px;
+}
+
+.suggestion li p {
+  font-size: 15px;
+}
+
+#last {
+  border-bottom:none;
+}
+
+
+.idea {
+  margin: 0;
+  padding: 1rem;
+  padding-left: 2rem;
+  width: 810px;
+  height: 245px;
+  background: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  box-sizing: border-box;
+  border-radius: 12px;
+}
+.idea h1 {
+  font-size: 17px;
+}
+.idea li {
+  border-bottom : 1px solid #E0E0E0;
+}
+
+.idea li h3 {
+  font-weight: 450; 
+  font-size: 17px;
+}
+
+.idea li p {
+  font-size: 15px;
+}
+
+#last {
+  border-bottom:none;
 }
