@@ -31,13 +31,13 @@
             <div class="auth-actions">
                 <button type="submit" class="btn btn-success">
                     Log in
-                </button>
+                </input>
                 <h3>
                     or <a href="#" class="sign-up" id="signUp"> create an account</a>
                 </h3>
             </div>
             <br/>
-
+        </form>
             {{!-- The modal for signup --}}
             <div id="signup-modal" class="modal">
                 <div class="modal-content">
@@ -49,59 +49,54 @@
 
                     </h1>
                 <form class="form" action= "/auth/signup" method="POST">
-                <div class="names">
-                    <div class = "form-group" id="first-name">
-                        <label for="firstName"> <b>First name</b> </label>
-                        <input type="text" class="form-control" id="firstName" placeholder="Peter" name="firstName" required>
+                    <div class="names">
+                        <div class = "form-group" id="first-name">
+                            <label for="firstName"> <b>First name</b> </label>
+                            <input type="text" class="form-control" id="firstName" placeholder="Peter" name="firstName" required>
+                        </div>
+                        <div class = "form-group" id='last-name'>
+                            <label for="lastName"> <b>Last name</b> </label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Parker" name="lastName" required>
+                        </div>
                     </div>
-                    <div class = "form-group" id='last-name'>
-                        <label for="lastName"> <b>Last name</b> </label>
-                        <input type="text" class="form-control" id="lastName" placeholder="Parker" name="lastName" required>
-                    </div>
-                </div>
                     <div class = "form-group">
                         <label for="email"> <b>Email</b> </label>
-                        <input type="text" class="form-control" id="signup-email" placeholder="Enter Email" name="email" required>
+                        <input type="text" class="form-control" id="signup_email" placeholder="Enter Email" name="signup_email" required>
                     </div>
                     <div class = "form-group"> 
                         <label for = "password"><b>Password</b></label>
-                        <input type="password" class="form-control" id="signup-password" name="password" placeholder='Enter password' required>
+                        <input type="password" class="form-control" id="signup_password" name="signup_password" placeholder='Enter password' required>
                     </div>
                     <br/>
+                    <button type="submit" class="btn btn-success" formaction="/auth/signup" method="POST">
+                            Sign up
+                    </button>
+                </form>
+            </div>    
+        <script>
+            var modal = document.getElementById('signup-modal');
 
-                    <div class="auth-actions">
-                        <button type="submit" class="btn btn-success">
-                            Log in
-                        </button>
-                        <h3>
-                            or <a href="#" class="sign-up" id="signUp"> create an account</a>
-                        </h3>
-                    </div>
-                </form>    
-    <script>
-        var modal = document.getElementById('signup-modal');
+            var signUp = document.getElementById('signUp');
 
-        var signUp = document.getElementById('signUp');
+            //{{!-- var closeBtn = document.getElementById('closeBtn'); --}}
 
-        var closeBtn = document.getElementById('closeBtn');
+            signUp.addEventListener('click', openSignupModal);
+            //{{!-- closeBtn.addEventListener('click', closeModal); --}}
+            window.addEventListener('click', clickOutsideModal);
 
-        signUp.addEventListener('click', openSignupModal);
-        closeBtn.addEventListener('click', closeModal);
-        window.addEventListener('click', clickOutsideModal);
+            function openSignupModal () {
+                modal.style.display = 'block';
+            };
 
-        function openSignupModal () {
-            modal.style.display = 'block';
-        };
-
-        function closeModal () {
-            modal.style.display = 'none';
-        };
-
-        function clickOutsideModal(e) {
-            if (e.target == modal){
+            function closeModal () {
                 modal.style.display = 'none';
+            };
+
+            function clickOutsideModal(e) {
+                if (e.target == modal){
+                    modal.style.display = 'none';
+                }
             }
-        }
-    </script>
+        </script>
 
 </div>

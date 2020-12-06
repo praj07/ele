@@ -13,6 +13,15 @@ router.get('/', (req, res) => {
 });
 
 function validUser (user : any) {
+    const validEmail = typeof user.signup_email == 'string' &&
+                        user.signup_email.trim() != '';
+    const validPassword = typeof user.signup_password == 'string' &&
+                        user.signup_password.trim() != '' &&
+                        user.signup_password.trim().length >= 6;
+    return validEmail && validPassword;
+};
+
+function validUserLogin (user : any) {
     const validEmail = typeof user.email == 'string' &&
                         user.email.trim() != '';
     const validPassword = typeof user.password == 'string' &&
@@ -32,7 +41,7 @@ router.post('/signup', async (req, res) => {
         })
     }
     if (valid) {
-        const { firstName, lastName, email, password, dob } = user; 
+        const { firstName, lastName, signup_email, signup_password, dob } = user; 
         if (!firstName || !lastName || firstName.trim().length == 0 || lastName.trim().length == 0) {
             return res.status(400).json({
                 messsage: "Error please make sure you provide your first and last name please"
@@ -40,17 +49,17 @@ router.post('/signup', async (req, res) => {
         };
         const userToCheck = await User.findOne({
             where : {
-                email
+                email: signup_email
             }
         });
         let createdUser;
         if (!userToCheck) { // user not found
             // unique email
-            const encryptedPass = bcrypt.hashSync(password, salt);
+            const encryptedPass = bcrypt.hashSync(signup_password, salt);
             createdUser = await User.create({
                 firstName: firstName.trim(),
                 lastName : lastName.trim(),
-                email: email.trim(),
+                email: signup_email.trim(),
                 dob,
                 password : encryptedPass
             })
@@ -58,12 +67,15 @@ router.post('/signup', async (req, res) => {
             // email in use
             return res.status(400).json({
                 message: 'Error please use a unique email'
-            })
-        }
-        return res.json ({
-            id: createdUser.id,
-            message: 'cool'
-        })
+            });
+        };
+        const isSecured = req.app.get('env') != 'development'; 
+        res.cookie('user_id', createdUser.dataValues.id, {
+            httpOnly: true,
+            signed: true,
+            secure: isSecured,
+        });
+        res.redirect('/home');
     } else {
         res.status(400).json({
             message: 'Error please ensure proper parameters'
@@ -74,9 +86,8 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
     let valid : boolean;
     const user = req.body;
-    console.log(user)
     try {
-        valid = validUser(req.body)
+        valid = validUserLogin(req.body);
     } catch (e) {
         return res.status(400).json({
             message: 'Error please ensure proper parameters'
@@ -93,7 +104,7 @@ router.post('/login', async (req, res) => {
             const result = await bcrypt.compare(password, userToCheck.password);
             if (result) {
                // passwords match 
-               const isSecured = req.app.get('env') != 'development'; 
+                const isSecured = req.app.get('env') != 'development'; 
                 res.cookie('user_id', userToCheck.id, {
                    httpOnly: true,
                    signed: true,
@@ -101,12 +112,11 @@ router.post('/login', async (req, res) => {
                 });
             } else {
                 return res.status(400).json({
-                    message: "Incorrect email and password"
+                    message: "Incorrect email and password",
                 });
             }
             res.redirect('/home')
         } else {
-            console.log(userToCheck)
             return res.status(400).json({
                 message: "Email doesn't exist"
             });

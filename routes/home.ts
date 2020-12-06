@@ -5,8 +5,10 @@ const User = require('../schemas/models/postgres/User');
 const Todo = require("../schemas/models/postgres/Todo");
 
 router.get('/', async (req, res) => {
-
     const userId = req.signedCookies.user_id
+    if (!userId) {
+        return res.redirect("/")
+    }
     const user = await User.findOne({
         where: {
             id:  userId,
@@ -37,7 +39,5 @@ router.get('/', async (req, res) => {
         todos,
     })
 });
-
-// router.
 
 module.exports = router;
