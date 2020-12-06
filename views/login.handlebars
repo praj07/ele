@@ -1,15 +1,107 @@
-<section class="login">
-    <form class="form" action= "/auth/login" method="POST">
-        <div class = "form-group">
-            <label for = "email">Email</label>
-            <input type="text" class="form-control" id="email" placeholder="hello@world.com" name="email" required>
-        </div>
-        <div class = "form-group"> 
-            <label for = "password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder='keyboard cat' required>
-        </div>
-        <button type="submit" class="btn btn-default btn-success">
-            Login
-        </button>
-    </form>    
-</section>
+<div class="container">
+    <div class="about">
+        <i></i>
+        <h1>
+            Guiding you through our last steps
+        </h1>
+    </div>
+    <section class="login">
+        <h1>
+            Log in
+        <i class="fas fa-smile fa-2x"></i>
+
+        </h1>
+
+        <br/>
+
+        <form class="form" action= "/auth/login" method="POST">
+            <div class = "form-group">
+                <label for="email"> <b>Email</b> </label>
+                <input type="text" class="form-control" id="email" placeholder="Enter Email" name="email" required>
+            </div>
+            <br/>
+            <br/>
+            <div class = "form-group"> 
+                <label for = "password"><b>Password</b></label>
+                <input type="password" class="form-control" id="password" name="password" placeholder='Enter password' required>
+            </div>
+            
+            <br/>
+            <br/>
+            <div class="auth-actions">
+                <button type="submit" class="btn btn-success">
+                    Log in
+                </button>
+                <h3>
+                    or <a href="#" class="sign-up" id="signUp"> create an account</a>
+                </h3>
+            </div>
+            <br/>
+
+            {{!-- The modal for signup --}}
+            <div id="signup-modal" class="modal">
+                <div class="modal-content">
+                    {{!-- <span class="close-btn" id="closeBtn">&times;</span>
+                    <p>Hello im an modal</p> --}}
+                    <h1>
+                    Create an account
+                    <i class="fas fa-smile "></i>
+
+                    </h1>
+                <form class="form" action= "/auth/signup" method="POST">
+                <div class="names">
+                    <div class = "form-group" id="first-name">
+                        <label for="firstName"> <b>First name</b> </label>
+                        <input type="text" class="form-control" id="firstName" placeholder="Peter" name="firstName" required>
+                    </div>
+                    <div class = "form-group" id='last-name'>
+                        <label for="lastName"> <b>Last name</b> </label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Parker" name="lastName" required>
+                    </div>
+                </div>
+                    <div class = "form-group">
+                        <label for="email"> <b>Email</b> </label>
+                        <input type="text" class="form-control" id="signup-email" placeholder="Enter Email" name="email" required>
+                    </div>
+                    <div class = "form-group"> 
+                        <label for = "password"><b>Password</b></label>
+                        <input type="password" class="form-control" id="signup-password" name="password" placeholder='Enter password' required>
+                    </div>
+                    <br/>
+
+                    <div class="auth-actions">
+                        <button type="submit" class="btn btn-success">
+                            Log in
+                        </button>
+                        <h3>
+                            or <a href="#" class="sign-up" id="signUp"> create an account</a>
+                        </h3>
+                    </div>
+                </form>    
+    <script>
+        var modal = document.getElementById('signup-modal');
+
+        var signUp = document.getElementById('signUp');
+
+        var closeBtn = document.getElementById('closeBtn');
+
+        signUp.addEventListener('click', openSignupModal);
+        closeBtn.addEventListener('click', closeModal);
+        window.addEventListener('click', clickOutsideModal);
+
+        function openSignupModal () {
+            modal.style.display = 'block';
+        };
+
+        function closeModal () {
+            modal.style.display = 'none';
+        };
+
+        function clickOutsideModal(e) {
+            if (e.target == modal){
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+
+</div>

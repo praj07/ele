@@ -50,14 +50,22 @@
         <br/>
         <h2>
             <i class="fas fa-calendar-week"></i>
-            <b>Today</b> ({{todosTodayCount}} {{eventsPlularized}})
+            <b>Planner</b> ({{todosTodayCount}} {{eventsPlularized}})
+            {{!-- <div class="add-btn" href = "#"> --}}
+                <a href ="/add" class ="btn add-btn">
+                     <i class="fa fa-plus" aria-hidden="true"></i>
+                    Add
+                </a>
+            {{!-- </div> --}}
         </h2>
         <div class = "events"> 
             <ul>
                     {{#each todos}}
                     <li>
                         <h1>{{title}}</h1>
-                        <p>with Annie @12 PM EST</p> 
+                        <p>with {{#each invitees}} {{this}}, {{/each}} @12 PM EST</p> 
+                        <div class="colored-box-events">
+                        </div>
                     </li>
                     {{else}}
                     <li id="nothing">
@@ -73,7 +81,10 @@
             <div class="later-items">
             </div> --}}
         </div>
+
         <br/>
+        <br/>
+
        <h2>
                 <i class="fas fa-heart"></i>
                 <b>Suggestions</b>
@@ -88,7 +99,10 @@
                     <p>
                         Learn about different choices so you can make an informed decision
                     </p>
-                    <i class="fas fa-plus-circle fa-2x"></i>
+                    {{!-- make this add button click open up a modal that adds the logistical event --}}
+                    <a href='/add' class="fas fa-plus-circle fa-2x"></a> 
+                    <div class="colored-box-suggestions">
+                    </div>
                 </li>
                 <li>
                     <h3>
@@ -97,16 +111,20 @@
                     <p>
                         Specify the final celebration of your life, from who to invite to what music to play
                     </p>
-                    <i class="fas fa-plus-circle fa-2x"></i>
+                    <a href='/add' class="fas fa-plus-circle fa-2x"></a> 
+                    <div class="colored-box-suggestions">
+                    </div>
                 </li>
                 <li>
                     <h3>
                         Save digital identity information
                     </h3>
                     <p>
-                        From social medai to your email and photes, list you digital identity so it's not lost forever
+                        From social media to your email and photos, list your digital identity so it's not lost forever
                     </p>
-                    <i class="fas fa-plus-circle fa-2x"></i>
+                    <a href='/add' class="fas fa-plus-circle fa-2x"></a> 
+                    <div class="colored-box-suggestions">
+                    </div>
                 </li>
                 <li>
                     <h3>
@@ -115,7 +133,9 @@
                     <p>
                         From paying bills to managing taxes, a POA manages your money so you don't have to
                     </p>
-                    <i class="fas fa-plus-circle fa-2x"></i>
+                    <a href='/add' class="fas fa-plus-circle fa-2x"></a> 
+                    <div class="colored-box-suggestions">
+                    </div>
                 </li>
                 <li id="last">
                     <h3>
@@ -124,14 +144,16 @@
                     <p>
                         Define anxieties to come to peace mentally and emotionally with the help of a trained professional
                     </p>
-                    <i class="fas fa-plus-circle fa-2x"></i>
+                                        <a href='/add' class="fas fa-plus-circle fa-2x"></a> 
+
+                    <div class="colored-box-suggestions">
+                    </div>
                 </li>
             </ul>
         
         </div>
 
         <br/>
-
         <div class="idea">
             <h1><b>Fun Ideas </b> <em>- popular last steps other Elis users are taking</em> </h1>
             <ul>
@@ -142,7 +164,10 @@
                     <p>
                         111 other Eli users have taken this step
                     </p>
-                    <i class="fas fa-plus-circle fa-2x"></i>
+                                        <a href='/add' class="fas fa-plus-circle fa-2x"></a> 
+
+                    <div class="colored-box-ideas">
+                    </div>
                 </li>
                 <li id="last">
                     <h3>
@@ -151,11 +176,50 @@
                     <p>
                         42069 other Eli users have tried this step
                     </p>
-                    <i class="fas fa-plus-circle fa-2x"></i>
+                                        <a href='/add' class="fas fa-plus-circle fa-2x"></a> 
+
+                    <div class="colored-box-ideas">
+                    </div>
                 </li>
             </ul>
         
         </div>
+
+        <br/>
+        <br/>
+
+        <h2>
+            <i class="fas fa-check"></i>
+            <b>Completed</b> ({{todosTodayCount}} {{eventsPlularized}})
+        </h2>
+
+        <div class="completed">
+            <h1><b>Completed Events </b> <em>- look over the events that you have completed</em> </h1>
+            <ul>
+                <li>
+                    <h3>
+                        Read grandchildren your favorite childhood book
+                    </h3>
+                    <p>
+                        111 other Eli users have taken this step
+                    </p>
+                    <div class="colored-box-ideas">
+                    </div>
+                </li>
+                <li id="last">
+                    <h3>
+                        Try marijuana
+                    </h3>
+                    <p>
+                        42069 other Eli users have tried this step
+                    </p>
+                    <div class="colored-box-ideas">
+                    </div>
+                </li>
+            </ul>
+        
+        </div>
+
         {{!-- <div class="bucket-list-header">
             <h2>
                 <i class="fab fa-bitbucket"></i>
