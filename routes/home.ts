@@ -1,9 +1,9 @@
 import * as express from 'express';
 import  * as Sequelize from 'Sequelize';
 const router = express.Router();
-const User = require('../schemas/models/postgres/User');
+const User = require("../schemas/models/postgres/User");
 const Todo = require("../schemas/models/postgres/Todo");
-
+const EOLSuggestions = require("../schemas/models/postgres/EOLSuggestions");
 router.get('/', async (req, res) => {
     const userId = req.signedCookies.user_id
     if (!userId) {
@@ -16,20 +16,41 @@ router.get('/', async (req, res) => {
     });
     const todos = await Todo.findAll({
         where: {
-            deadline : { [Sequelize.Op.gte]: Date.now() },
+            date : { [Sequelize.Op.gte]: Date.now() },
             owner : userId,
-            isCompleted: false,
         },
     });
     const todosToday = await Todo.findAndCountAll({
         where : {
-            isCompleted: false,
-            deadline : Date.now(), 
+            date: { [Sequelize.Op.gte]: Date.now() },
+            owner : userId,
         }
     });
+
+    const completed = await Todo.findAll({
+        where: {
+            date : { [Sequelize.Op.lt]: Date.now() },
+            owner : userId,
+        },
+    });
+
+    const completedCount = await Todo.findAndCountAll({
+        where: {
+            date : { [Sequelize.Op.lt]: Date.now() },
+            owner : userId,
+        },
+    });
+
+    const eolsuggestions = await EOLSuggestions.findAll();
+
     const todosTodayCount = todosToday.count;
-    const eventsPlularized = todosTodayCount == 1 ? 'event' : 'events'
+    const eventsPlularized = todosTodayCount == 1 ? '1 event' : (todosTodayCount == 0 ? 'No events' : `${todosTodayCount} events`);
+    
+    const completedEventsCount = completedCount.count;
+    const completedPlularized = completedEventsCount == 1 ? '1 event' : (completedEventsCount == 0 ? 'No events' : `${completedEventsCount} events`);
     const hourOfDay = new Date().getHours();
+    
+    
     let greeting = hourOfDay < 12 ? "Good morning" : ( hourOfDay < 17 ? "Good afternoon" : "Good evening");
     res.render('home', {
         user,
@@ -37,6 +58,9 @@ router.get('/', async (req, res) => {
         todosTodayCount,
         eventsPlularized,
         todos,
+        completed,
+        completedPlularized,
+        eolsuggestions,
     })
 });
 

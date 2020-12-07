@@ -50,36 +50,28 @@
         <br/>
         <h2>
             <i class="fas fa-calendar-week"></i>
-            <b>Planner</b> ({{todosTodayCount}} {{eventsPlularized}})
-            {{!-- <div class="add-btn" href = "#"> --}}
-                <a href ="/add" class ="btn add-btn">
+            <b>Planner</b> ({{eventsPlularized}})
+                <a href="#" class ="btn add-btn" id="add-btn">
                      <i class="fa fa-plus" aria-hidden="true"></i>
                     Add
                 </a>
-            {{!-- </div> --}}
         </h2>
-        <div class = "events"> 
+        <div class = "events" id="events"> 
             <ul>
                     {{#each todos}}
                     <li>
                         <h1>{{title}}</h1>
-                        <p>with {{#each invitees}} {{this}}, {{/each}} @12 PM EST</p> 
+                        <p>with {{#each invitees}} {{this}}, {{/each}} on {{date}} @ {{time}}. Location: {{location}}</p> 
                         <div class="colored-box-events">
                         </div>
                     </li>
                     {{else}}
-                    <li id="nothing">
-                        <h1>You have nothing planned for today!</h1>
-                        <p>Click the Add button below to add things to do!</p>
-                    </li>
+                    <script>
+                        var events = document.getElementById('events');
+                        events.style.display = 'none';
+                    </script>
                     {{/each}}
             </ul>
-            {{!-- <div class="later-events">
-                <h1>You have nothing scheduled for later!</h1>
-                <p>Click the Add button below to add things to do</p>
-            </div>
-            <div class="later-items">
-            </div> --}}
         </div>
 
         <br/>
@@ -92,66 +84,166 @@
         <div class="suggestion">
             <h1><b>End-of-Life-Logistics </b> <em>- important things to do for a stress free good-bye</em> </h1>
             <ul>
-                <li>
-                    <h3>
-                        Choose body preferences
-                    </h3>
-                    <p>
-                        Learn about different choices so you can make an informed decision
-                    </p>
-                    {{!-- make this add button click open up a modal that adds the logistical event --}}
-                    <a href='/add' class="fas fa-plus-circle fa-2x"></a> 
-                    <div class="colored-box-suggestions">
-                    </div>
-                </li>
-                <li>
-                    <h3>
-                        Make funeral arrangements
-                    </h3>
-                    <p>
-                        Specify the final celebration of your life, from who to invite to what music to play
-                    </p>
-                    <a href='/add' class="fas fa-plus-circle fa-2x"></a> 
-                    <div class="colored-box-suggestions">
-                    </div>
-                </li>
-                <li>
-                    <h3>
-                        Save digital identity information
-                    </h3>
-                    <p>
-                        From social media to your email and photos, list your digital identity so it's not lost forever
-                    </p>
-                    <a href='/add' class="fas fa-plus-circle fa-2x"></a> 
-                    <div class="colored-box-suggestions">
-                    </div>
-                </li>
-                <li>
-                    <h3>
-                        Define power of attorney
-                    </h3>
-                    <p>
-                        From paying bills to managing taxes, a POA manages your money so you don't have to
-                    </p>
-                    <a href='/add' class="fas fa-plus-circle fa-2x"></a> 
-                    <div class="colored-box-suggestions">
-                    </div>
-                </li>
-                <li id="last">
-                    <h3>
-                        Talk to an end-of-life psychologist
-                    </h3>
-                    <p>
-                        Define anxieties to come to peace mentally and emotionally with the help of a trained professional
-                    </p>
-                                        <a href='/add' class="fas fa-plus-circle fa-2x"></a> 
-
-                    <div class="colored-box-suggestions">
-                    </div>
-                </li>
+                {{#each eolsuggestions}}
+                    <li id ={{@index}}>
+                        <h3>
+                            {{title}}
+                        </h3>
+                        <p>
+                            {{short_desc}}
+                        </p>
+                        <a href='#' class="fas fa-plus-circle fa-2x" id="add-eol-suggestion-{{@index}}"></a> 
+                        <div class="colored-box-suggestions">
+                        </div>
+                    </li>
+                {{/each}}
             </ul>
-        
         </div>
+
+        <div class="modal" id="add-eol-modal">
+            <div class="modal-content" id="add-eol-content">
+                <h3 id="modal-title">
+                   <b>
+                    Title
+                   </b>
+                </h3>
+                <form class='form' action='/add' method="POST" id="add-eol-form">
+                <div class="form-group">
+                    <label for="title"> <b>Event name</b></label>
+                    <input type ='text' class="form-control" id="title" placeholder="Add event name" name="title">
+                </div>
+                 <div class="form-group">
+                    <label for="description"> <b>Description</b></label>
+                    <input type ='text' class="form-control" id="description" placeholder="Add event description" name="description">
+                </div>
+                 <div class="form-group">
+                    <label for="location"> <b>Location</b></label>
+                    <input type= 'text' class="form-control" id="location" placeholder="Add location" name="location">
+                </div>
+                 <div class="form-group">
+                    <label for="date"> <b>Date</b></label>
+                    <input type="date" class="form-control" id="date" placeholder="Select date" name="date">
+                </div>
+                 <div class="form-group">
+                    <label for="time"> <b>Time</b></label>
+                    <input type="time" class="form-control" id="time" placeholder="Select time" name="time">
+                </div>
+                 <div class="form-group">
+                    <label for="invitees"> <b>Invite</b></label>
+                    <input type ="text" class="form-control" id="invitees" placeholder="Enter emails seperated by a comma" name="invitees">
+                </div>
+                <br/>
+                <button type="submit" class="btn btn-success">
+                    Submit
+                </button>
+                </form>
+                <div class="details">
+                    <div class="description">
+                        <h3>
+                            Description
+                        </h3>
+                        <p id="eol-description-long">
+                            description
+                        </p>    
+                    </div>       
+                    <br/> 
+                    <div class="instructions">
+                        <h3>
+                            Instructions
+                        </h3>
+                        <p id = "eol-instructions">
+                            instruction
+                        </p> 
+                    </div>
+               </div>
+            </div>
+        </div>
+
+        <script>
+            var eolsuggestion0 = document.getElementById('add-eol-suggestion-0');
+            var eolsuggestion1 = document.getElementById('add-eol-suggestion-1');
+            var eolsuggestion2 = document.getElementById('add-eol-suggestion-2');
+            var eolsuggestion3 = document.getElementById('add-eol-suggestion-3');
+            var eolsuggestion4 = document.getElementById('add-eol-suggestion-4');
+            var eolsuggestion5 = document.getElementById('add-eol-suggestion-5');
+
+            var eol_modal = document.getElementById('add-eol-modal');
+            
+            window.addEventListener('click', clickOutsideModal);
+            eolsuggestion0.addEventListener('click', openAddModal0);
+            eolsuggestion1.addEventListener('click', openAddModal1);
+            eolsuggestion2.addEventListener('click', openAddModal2);
+            eolsuggestion3.addEventListener('click', openAddModal3);
+            eolsuggestion4.addEventListener('click', openAddModal4);
+            eolsuggestion5.addEventListener('click', openAddModal5);
+
+            function openAddModal0 () {
+                    eol_modal.style.display = 'block';
+                    var title = document.getElementById('modal-title');
+                    var longDesc = document.getElementById('eol-description-long');
+                    var instruction = document.getElementById('eol-instructions')
+                    title.innerHTML = `<b>{{eolsuggestions.0.title}} </b>`;
+                    longDesc.innerHTML = `{{eolsuggestions.0.long_desc}}`;
+                    instruction.innerHTML = `{{eolsuggestions.0.instructions}}`;
+            };
+
+            function openAddModal1 () {
+                    eol_modal.style.display = 'block';
+                    var title = document.getElementById('modal-title');
+                    var longDesc = document.getElementById('eol-description-long');
+                    var instruction = document.getElementById('eol-instructions')
+                    title.innerHTML = `<b>{{eolsuggestions.1.title}} </b>`;
+                    longDesc.innerHTML = `{{eolsuggestions.1.long_desc}}`;
+                    instruction.innerHTML = `{{eolsuggestions.1.instructions}}`;
+            };    
+           
+           function openAddModal2 () {
+                    eol_modal.style.display = 'block';
+                    var title = document.getElementById('modal-title');
+                    var longDesc = document.getElementById('eol-description-long');
+                    var instruction = document.getElementById('eol-instructions')
+                    title.innerHTML = `<b>{{eolsuggestions.2.title}} </b>`;
+                    longDesc.innerHTML = `{{eolsuggestions.2.long_desc}}`;
+                    instruction.innerHTML = `{{eolsuggestions.2.instructions}}`;
+            };
+
+            function openAddModal3 () {
+                    eol_modal.style.display = 'block';
+                    var title = document.getElementById('modal-title');
+                    var longDesc = document.getElementById('eol-description-long');
+                    var instruction = document.getElementById('eol-instructions')
+                    title.innerHTML = `<b>{{eolsuggestions.3.title}} </b>`;
+                    longDesc.innerHTML = `{{eolsuggestions.3.long_desc}}`;
+                    instruction.innerHTML = `{{eolsuggestions.3.instructions}}`;
+            };
+
+            function openAddModal4 () {
+                    eol_modal.style.display = 'block';
+                    var title = document.getElementById('modal-title');
+                    var longDesc = document.getElementById('eol-description-long');
+                    var instruction = document.getElementById('eol-instructions')
+                    title.innerHTML = `<b>{{eolsuggestions.4.title}} </b>`;
+                    longDesc.innerHTML = `{{eolsuggestions.4.long_desc}}`;
+                    instruction.innerHTML = `{{eolsuggestions.4.instructions}}`;
+            };
+
+            function openAddModal5 () {
+                    eol_modal.style.display = 'block';
+                    var title = document.getElementById('modal-title');
+                    var longDesc = document.getElementById('eol-description-long');
+                    var instruction = document.getElementById('eol-instructions')
+                    title.innerHTML = `<b>{{eolsuggestions.5.title}} </b>`;
+                    longDesc.innerHTML = `{{eolsuggestions.5.long_desc}}`;
+                    instruction.innerHTML = `{{eolsuggestions.5.instructions}}`;
+            };
+            function clickOutsideModal (e) {
+                console.log('pressed')
+                if (e.target == eol_modal){
+                    eol_modal.style.display = 'none';
+                }
+            };
+        </script>   
+
 
         <br/>
         <div class="idea">
@@ -176,8 +268,7 @@
                     <p>
                         42069 other Eli users have tried this step
                     </p>
-                                        <a href='/add' class="fas fa-plus-circle fa-2x"></a> 
-
+                        <a href='/add' class="fas fa-plus-circle fa-2x"></a> 
                     <div class="colored-box-ideas">
                     </div>
                 </li>
@@ -190,47 +281,83 @@
 
         <h2>
             <i class="fas fa-check"></i>
-            <b>Completed</b> ({{todosTodayCount}} {{eventsPlularized}})
+            <b>Completed</b> ({{completedPlularized}})
         </h2>
 
-        <div class="completed">
+        <div class="completed" id="completed">
             <h1><b>Completed Events </b> <em>- look over the events that you have completed</em> </h1>
             <ul>
+                {{#each completed}}
                 <li>
-                    <h3>
-                        Read grandchildren your favorite childhood book
-                    </h3>
-                    <p>
-                        111 other Eli users have taken this step
-                    </p>
-                    <div class="colored-box-ideas">
+                    <h1>{{title}}</h1>
+                    <p>with {{#each invitees}} {{this}}, {{/each}} on {{date}} @ {{time}}. Location: {{location}}</p> 
+                    <div class="colored-box-events">
                     </div>
                 </li>
-                <li id="last">
-                    <h3>
-                        Try marijuana
-                    </h3>
-                    <p>
-                        42069 other Eli users have tried this step
-                    </p>
-                    <div class="colored-box-ideas">
-                    </div>
-                </li>
+                {{else}}
+                <script>
+                    var events = document.getElementById('completed');
+                    events.style.display = 'none';
+                </script>
+                {{/each}}
             </ul>
-        
         </div>
 
-        {{!-- <div class="bucket-list-header">
-            <h2>
-                <i class="fab fa-bitbucket"></i>
-                <b>Bucket List</b>
-            </h2>
-            <button class="btn-add">
-                <i class="fas fa-plus"></i>
-                <b>Add</b> 
-            </button>
+        <div class="modal" id="add-modal">
+            <div class="modal-content" id="add">
+                <h3>
+                   <b>
+                        Add something you'd like to do
+                   </b>
+                </h3>
+                <form class='form' action='/add' method="POST">
+                <div class="form-group">
+                    <label for="title"> <b>Event name</b></label>
+                    <input type ='text' class="form-control" id="title" placeholder="Add event name" name="title">
+                </div>
+                 <div class="form-group">
+                    <label for="description"> <b>Description</b></label>
+                    <input type ='text' class="form-control" id="description" placeholder="Add event description" name="description">
+                </div>
+                 <div class="form-group">
+                    <label for="location"> <b>Location</b></label>
+                    <input type= 'text' class="form-control" id="location" placeholder="Add location" name="location">
+                </div>
+                 <div class="form-group">
+                    <label for="date"> <b>Date</b></label>
+                    <input type="date" class="form-control" id="date" placeholder="Select date" name="date">
+                </div>
+                 <div class="form-group">
+                    <label for="time"> <b>Time</b></label>
+                    <input type="time" class="form-control" id="time" placeholder="Select time" name="time">
+                </div>
+                 <div class="form-group">
+                    <label for="invitees"> <b>Invite</b></label>
+                    <input type ="text" class="form-control" id="invitees" placeholder="Enter emails seperated by a comma" name="invitees">
+                </div>
+                <br/>
+                <button type="submit" class="btn btn-success">
+                    Submit
+                </button>
+                </form>
+            </div>
         </div>
-        <div class="bucket-list">
-            
-        </div> --}}
     </div>
+    <script>
+        var addBtn = document.getElementById('add-btn');
+
+        var modal = document.getElementById('add-modal');
+        
+        addBtn.addEventListener('click', openAddModal);
+        window.addEventListener('click', clickOutsideModal);
+
+        function openAddModal () {
+                modal.style.display = 'block';
+            };
+
+        function clickOutsideModal (e) {
+            if (e.target == modal){
+                modal.style.display = 'none';
+            }
+        };
+    </script>   

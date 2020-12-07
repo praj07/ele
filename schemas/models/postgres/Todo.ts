@@ -3,7 +3,7 @@ const db = require('../../../config/database')
 
 const todo = db.define('todos', {
     title: Sequelize.STRING, //
-    deadline: Sequelize.DATEONLY, 
+    date: Sequelize.DATEONLY, 
     isCompleted: Sequelize.BOOLEAN,
     description: Sequelize.STRING, // 
     invitees: [ // 
@@ -11,6 +11,8 @@ const todo = db.define('todos', {
         Sequelize.STRING,
     ],
     owner: Sequelize.UUIDV4, // 
+    time: Sequelize.TIME,
+    location: Sequelize.STRING,
 }, {
     id: false,
     timestamps: false,

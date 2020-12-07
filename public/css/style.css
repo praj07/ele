@@ -422,7 +422,7 @@ label {
   padding: 1rem;
   padding-left: 2rem;
   width: 810px;
-  height: 465px;
+  height: 530px;
   background: #FFFFFF;
   border: 1px solid #DDDDDD;
   box-sizing: border-box;
@@ -669,16 +669,15 @@ label {
   top:0;
   height: 100%;
   width: 100%;
-  overflow: auto;
+  /* overflow: auto; */
   background-color: rgba(0,0,0,0.5);
 }
 
 .modal-content {
   background-color: white;
-  margin: 20% auto;
+  margin: 10% auto;
   padding: 10px;
   padding-top: 2px;
-  width: 70%;
   box-shadow: 0 5px 8px rbga(0,0,0, 0.2), 0 7px 20px 0 rgba (0,0,0,0.17);
   animation-name:modalopen;
   animation-duration: 1s;
@@ -714,7 +713,75 @@ label {
   float: right;
 }
 
+#add {
+  width: 466px;
+  height: 583px;
+  padding: 1rem;
+}
+
 @keyframes modalopen {
   from { opacity: 0 }
   to { opacity: 1 }
+}
+
+ #add-eol-modal {
+  display:none;
+  position: fixed;
+} 
+
+#add-eol-content {
+  width: 818px;
+  height: 534px; 
+}
+
+#add-modal {
+  display:none;
+}
+
+#add-eol-form {
+  position: relative;
+  width: 350px; 
+  padding-left:1rem;
+  float: right;
+  border-left: 1px solid #E0E0E0;
+  padding-top:1rem;
+} 
+
+.modal-content h3 {
+  padding-top: 1rem;
+  padding-left: 1rem; 
+  width: 53%;
+  margin:auto;
+  float:left
+}
+
+
+
+.details {
+  position:relative;
+  top: -20px;
+  width: 40%;
+  height: 75%;
+  float: left;
+  margin:auto;
+}
+
+.details h3 {
+  width: 100%;
+  float: left;
+  padding-left: 0px;
+}
+
+.description {
+  height: 45%;
+  width:100%;
+  margin: auto;
+  padding: 1rem;
+}
+
+.instructions {
+  height: 45%;
+  width:100%;
+  margin: auto;
+  padding: 1rem;
 }
